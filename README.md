@@ -93,6 +93,16 @@ query {
 
 ---
 
+## 🧩 Example REST request
+
+**Request:**
+
+```sh
+curl -v http://localhost:80/api/v1/hobbies
+```
+
+---
+
 ## 📦 Tech Stack
 
 * **Java 17**
