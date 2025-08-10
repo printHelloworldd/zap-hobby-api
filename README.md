@@ -8,42 +8,32 @@ Nginx is used as a **load balancer** with a **Round Robin** strategy to distribu
 
 ## 🚀 How to Run
 
-1. **Build and start with Docker Compose**:
+1. Create a `.env` file in the project root with the following variables:
+
+    ```env
+    POSTGRES_URL=jdbc:postgresql://postgres:5432/db-name
+    POSTGRES_DB=db-name
+    POSTGRES_USER=postgres-user
+    POSTGRES_PASSWORD=postgres-password
+    REDIS_PASSWORD=redis-password
+    REDIS_URL=redis://:redis-password@redis:6379
+    REDIS_HOST=redis
+    REDIS_PORT=6379
+    ```
+
+2. **Build and start with Docker Compose**:
 
    ```bash
    docker-compose up --build
    ```
 
-2. **Default Access Points**:
+3. **Default Access Points**:
 
-   * API (via Nginx Load Balancer): `http://localhost`
+   * API (via Nginx Load Balancer): `http://localhost:80`
    * Direct API instance #1: `http://localhost:8081`
    * Direct API instance #2: `http://localhost:8082`
-   * PostgreSQL: `localhost:5432`
+   * PostgreSQL: `localhost:5332`
    * Redis: `localhost:6379`
-
----
-
-## 📦 Tech Stack
-
-* **Java 17**
-* **Spring Boot** (Web, GraphQL, Data JPA, Redis)
-* **PostgreSQL** – main database
-* **Redis** – caching
-* **Nginx** – load balancer (Round Robin)
-* **Docker & Docker Compose**
-
----
-
-## ⚙️ Environment Variables
-
-| Variable                     | Description             | Example                                      |
-| ---------------------------- | ----------------------- | -------------------------------------------- |
-| `SPRING_DATASOURCE_URL`      | Database connection URL | `jdbc:postgresql://postgres:5432/hobbies_db` |
-| `SPRING_DATASOURCE_USERNAME` | Database username       | `postgres`                                   |
-| `SPRING_DATASOURCE_PASSWORD` | Database password       | `mypassword`                                 |
-| `SPRING_REDIS_HOST`          | Redis host              | `redis`                                      |
-| `SPRING_REDIS_PORT`          | Redis port              | `6379`                                       |
 
 ---
 
@@ -100,6 +90,36 @@ query {
   }
 }
 ```
+
+---
+
+## 📦 Tech Stack
+
+* **Java 17**
+* **Spring Boot** (Web, GraphQL, Data JPA, Redis)
+* **PostgreSQL** – main database
+* **Redis** – caching
+* **Nginx** – load balancer (Round Robin)
+* **Docker & Docker Compose**
+
+---
+
+## 📚 Dependencies
+
+- **Spring Boot**
+  - `spring-boot-starter-web` – REST API
+  - `spring-boot-starter-data-jpa` – ORM support
+  - `spring-boot-starter-graphql` – GraphQL API
+  - `spring-boot-starter-data-redis` – Redis cache integration
+- **Database**
+  - `postgresql` – PostgreSQL JDBC driver
+- **Caching**
+  - `jedis` – Redis client
+- **Rate Limiting**
+  - `bucket4j-core` – API rate limiting
+- **Testing**
+  - `spring-boot-starter-test` – Unit & integration testing
+  - `httpclient5` – HTTP client for tests
 
 ---
 
